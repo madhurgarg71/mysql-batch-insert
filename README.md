@@ -10,4 +10,4 @@ First install dependencies
 
 Run 
 
-node script.js
+###node script.js
