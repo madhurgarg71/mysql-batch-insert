@@ -32,23 +32,23 @@ fs1.readFile('data/firstnames.out', function (err, data) {
     }
     var len2 = lnames.length
     var arr = []
-    var user = []
-    for (var i = 0; i < 4; i += 1) {
-      for (var j = 0; j < 5; j += 1) {
+    var x = 0;
+    for (var i = 0; i < 100; i += 1) {
+      for (var j = 0; j < 100; j += 1) {
         var name = fnames[i] + ' ' + lnames[j]
-        user.push(fnames[i], lnames[j], name)
+        var user = [x+=1, fnames[i], lnames[j], name]
         arr.push(user)
-        // console.log(arr)
+        console.log(user)
       }
     }
     // var Arr = [arr]
     console.log(arr)
     connection.query('INSERT INTO users VALUES ?', [arr], function (err, result) {
-        if (err) {
-          throw (err)
-        } else {
-          console.log('Inserted')
-        }
-      })
+      if (err) {
+        throw (err)
+      } else {
+        console.log('Inserted')
+      }
     })
+  })
 })
