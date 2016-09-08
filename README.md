@@ -4,6 +4,10 @@ First install dependencies
 
 ### npm install
 
-..then
+..then insert bulk data
 
-### node script.js
+### node data.js
+
+Run 
+
+node script.js
