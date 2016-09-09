@@ -31,24 +31,37 @@ fs1.readFile('data/firstnames.out', function (err, data) {
       var lnames = data.toString().split('\n')
     }
     var len2 = lnames.length
-    var arr = []
-    var x = 0;
-    for (var i = 0; i < 100; i += 1) {
-      for (var j = 0; j < 100; j += 1) {
+    var batch = []
+    var x = 0
+    var c = 0
+    // var total = len1*len2
+    // var p = total/
+    var start = new Date().getTime()
+    for (var i = 0; i < len1; i += 1) {
+      for (var j = 0; j < len2; j += 1) {
         var name = fnames[i] + ' ' + lnames[j]
         var user = [x+=1, fnames[i], lnames[j], name]
-        arr.push(user)
-        console.log(user)
+        batch[c] = user
+        c += 1
+        if (batch.length === 20000 || i*j === (len1-1)*(len2-1)) {
+          connection.query('INSERT INTO users VALUES ?', [batch], function (err, result) {
+            if (err) {
+              throw (err)
+            } else {
+              console.log('Inserted')
+            }
+          })
+          console.log('Iam non blocking')
+          c = 0
+          console.log(c)
+          batch = []
+          console.log(batch)
+        }
       }
     }
-    // var Arr = [arr]
-    console.log(arr)
-    connection.query('INSERT INTO users VALUES ?', [arr], function (err, result) {
-      if (err) {
-        throw (err)
-      } else {
-        console.log('Inserted')
-      }
-    })
+
+    var end = new Date().getTime()
+    var time = end - start
+    console.log('Execution time: ', time)
   })
 })
