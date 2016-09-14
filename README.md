@@ -8,6 +8,3 @@ First install dependencies
 
 ### node data.js
 
-Run 
-
-###node script.js
